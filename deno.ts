@@ -1,14 +1,17 @@
-const OPENAI_API_HOST = "https://api.groq.com/openai";
+curl --location 'https://droppy.deno.dev/api.groq.com/v1/chat/completions' \
+--header 'Authorization: Bearer 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' \
+--header 'Content-Type: application/json' \
 
-Deno.serve(async (request) => {
-  const url = new URL(request.url);
-  url.host = OPENAI_API_HOST;
-
-  const newRequest = new Request(url.toString(), {
-    headers: request.headers,
-    method: request.method,
-    body: request.body,
-    redirect: "follow",
-  });
-  return await fetch(newRequest);
-});
+--data '{
+    "messages": [
+        {
+            "role": "system",
+            "content": "You are a test assistant."
+        },
+        {
+            "role": "user",
+            "content": "Testing. Just say hi and nothing else."
+        }
+    ],
+    "model": "gemini-2.0-flash-exp"
+}'
